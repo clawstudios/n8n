@@ -11,7 +11,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
-      - MONGO_INITDB_DATABASE=scrapping
+      - MONGO_INITDB_DATABASE=n8n
     ports:
       - '27017:27017'
     volumes:
@@ -25,3 +25,5 @@ services:
 volumes:
   dbdata6:
   n8n_data:
+    driver: external
+    name: n8n_data
