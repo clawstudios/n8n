@@ -1,0 +1,27 @@
+version: '3.9'
+networks:
+  base-net:
+    name: base-net
+    driver: bridge
+services:
+  mongodb:
+    image: mongo
+    command:
+      - --auth
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=scrapping
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - '5678:5678'
+    volumes:
+      - n8n_data:/home/node/.n8n
+volumes:
+  dbdata6:
+  n8n_data:
