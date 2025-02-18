@@ -1,3 +1,5 @@
+[![claw-text-blue](https://github.com/user-attachments/assets/7add156a-1678-46ca-a0ad-8c11e799f90d)](https://www.clawstudios.com/)
+
 # N8N Local Environment Boilerplate
 
 This repository provides a quick setup for running n8n locally with MongoDB integration using Docker Compose.
