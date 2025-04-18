@@ -25,5 +25,3 @@ services:
 volumes:
   dbdata6:
   n8n_data:
-    driver: external
-    name: n8n_data
