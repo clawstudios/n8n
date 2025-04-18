@@ -10,12 +10,14 @@ This repository provides a quick setup for running n8n locally with MongoDB inte
 - MongoDB database with authentication
 - Persistent data storage
 - Docker-based setup for easy deployment
+- SSL/TLS support with Traefik and Let's Encrypt
 
 ## 📋 Prerequisites
 
 - Docker
 - Docker Compose
 - Git (optional)
+- Domain name pointing to your server (for SSL)
 
 ## 🛠️ Installation
 
@@ -25,10 +27,10 @@ This repository provides a quick setup for running n8n locally with MongoDB inte
 git clone https://github.com/clawstudios/n8n.git
 ```
 
-2. Create the external volume for n8n:
+2. Ensure acme.json is created and has the right permissions for Traefik:
 
 ```bash
-docker volume create n8n_data
+chmod 600 traefik-data/acme.json
 ```
 
 3. Run the Docker Compose setup:
@@ -37,7 +39,7 @@ docker volume create n8n_data
 docker compose up -d
 ```
 
-4. Access N8N at http://localhost:5678.
+4. Access N8N at https://your-domain.com (or http://localhost:5678 for local development).
 
 ## 🔧 Configuration
 
@@ -49,20 +51,27 @@ docker compose up -d
 - Default Database: `n8n`
 
 ### N8N
-- URL: `http://localhost:5678`
+- URL: `https://your-domain.com` or `http://localhost:5678` (local development)
 - Default credentials will be created on first launch
+
+### Traefik
+- Automatically handles SSL certificates via Let's Encrypt
+- Redirects HTTP to HTTPS
+- Manages routing to the n8n service
 
 ## 📦 Volume Information
 
-The setup uses two Docker volumes:
-- `dbdata6`: Stores MongoDB data
-- `n8n_data`: Stores n8n configurations and workflows (external volume)
+The setup uses three Docker volumes:
+- `mongo_data`: Stores MongoDB data
+- `n8n_data`: Stores n8n configurations and workflows
+- Local directory `traefik-data`: Stores Traefik configuration and SSL certificates
 
 ## 🔒 Security Notes
 
 - The MongoDB credentials in this setup are for development purposes only
 - Change the default credentials before using in a production environment
 - Consider implementing additional security measures for production use
+- The `chmod 600 traefik-data/acme.json` step is critical for security and proper functioning of SSL
 
 ## 🤝 Contributing
 
@@ -81,3 +90,4 @@ This is a development setup and should be properly secured before using in a pro
 - [N8N Documentation](https://docs.n8n.io/)
 - [MongoDB Documentation](https://docs.mongodb.com/)
 - [Docker Documentation](https://docs.docker.com/)
+- [Traefik Documentation](https://doc.traefik.io/traefik/)
